@@ -131,51 +131,128 @@ def render_market_overview(stats):
         st.plotly_chart(fig, use_container_width=True)
 
 def render_gainers_losers(df):
-    """Render the top gainers and losers section"""
+    """Render the top gainers and losers section in a minimal format"""
     # Get top 5 gainers and losers
     gainers, losers = DataProcessor.get_top_gainers_losers(df, n=5)
+    
+    # Create a minimal, modern style for top movers
+    st.markdown("""
+    <style>
+    .minimal-token-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        border-radius: 6px;
+        margin-bottom: 6px;
+        transition: all 0.2s ease;
+    }
+    
+    .minimal-token-row:hover {
+        background: rgba(255, 255, 255, 0.05);
+        transform: translateX(3px);
+    }
+    
+    .token-name {
+        font-weight: 500;
+    }
+    
+    .token-symbol {
+        color: #A0A0A0;
+        font-size: 0.9em;
+        margin-left: 5px;
+    }
+    
+    .token-price {
+        font-size: 0.85em;
+        color: #CCCCCC;
+    }
+    
+    .positive-change {
+        font-weight: 600;
+        color: #00FF9E;
+    }
+    
+    .negative-change {
+        font-weight: 600;
+        color: #FF3D71;
+    }
+    
+    .movers-container {
+        background: rgba(26, 26, 26, 0.7);
+        border-radius: 8px;
+        padding: 12px 15px;
+        margin-bottom: 15px;
+    }
+    
+    .movers-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        padding-bottom: 8px;
+    }
+    
+    .movers-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0;
+    }
+    </style>
+    """, unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown('<h3 style="color:#00FF9E;">🚀 Top Gainers (24h)</h3>', unsafe_allow_html=True)
+        st.markdown("""
+        <div class="movers-container">
+            <div class="movers-header">
+                <h3 class="movers-title" style="color: #00FF9E;">🚀 Top Gainers (24h)</h3>
+            </div>
+        """, unsafe_allow_html=True)
+        
         if gainers.empty:
             st.info("No gainers data available")
         else:
             for _, token in gainers.iterrows():
-                # Use our custom card component instead of the default one
-                render_card(
-                    title=f"{token['name']} ({token['symbol']})",
-                    content=f"""
-                    <div style="display: flex; justify-content: space-between;">
-                        <div>Price: <span style="color: white;">${token['price']:,.6f}</span></div>
-                        <div>Change: <span style="color: #00FF9E; font-weight: bold;">+{token['price_change_24h']:.2f}%</span></div>
+                st.markdown(f"""
+                <div class="minimal-token-row">
+                    <div>
+                        <span class="token-name">{token['name']}</span>
+                        <span class="token-symbol">{token['symbol']}</span>
+                        <div class="token-price">${token['price']:,.6f}</div>
                     </div>
-                    <div style="margin-top: 5px;">Market Cap: {DataProcessor.format_number(token['market_cap'])}</div>
-                    """,
-                    color="green",
-                    icon="📈"
-                )
+                    <div class="positive-change">+{token['price_change_24h']:.2f}%</div>
+                </div>
+                """, unsafe_allow_html=True)
+        
+        st.markdown("</div>", unsafe_allow_html=True)
     
     with col2:
-        st.markdown('<h3 style="color:#FF3D71;">📉 Top Losers (24h)</h3>', unsafe_allow_html=True)
+        st.markdown("""
+        <div class="movers-container">
+            <div class="movers-header">
+                <h3 class="movers-title" style="color: #FF3D71;">📉 Top Losers (24h)</h3>
+            </div>
+        """, unsafe_allow_html=True)
+        
         if losers.empty:
             st.info("No losers data available")
         else:
             for _, token in losers.iterrows():
-                # Use our custom card component instead of the default one
-                render_card(
-                    title=f"{token['name']} ({token['symbol']})",
-                    content=f"""
-                    <div style="display: flex; justify-content: space-between;">
-                        <div>Price: <span style="color: white;">${token['price']:,.6f}</span></div>
-                        <div>Change: <span style="color: #FF3D71; font-weight: bold;">{token['price_change_24h']:.2f}%</span></div>
+                st.markdown(f"""
+                <div class="minimal-token-row">
+                    <div>
+                        <span class="token-name">{token['name']}</span>
+                        <span class="token-symbol">{token['symbol']}</span>
+                        <div class="token-price">${token['price']:,.6f}</div>
                     </div>
-                    <div style="margin-top: 5px;">Market Cap: {DataProcessor.format_number(token['market_cap'])}</div>
-                    """,
-                    color="red",
-                    icon="📉"
-                )
+                    <div class="negative-change">{token['price_change_24h']:.2f}%</div>
+                </div>
+                """, unsafe_allow_html=True)
+        
+        st.markdown("</div>", unsafe_allow_html=True)
 
 def render_token_card(token, is_gainer=True):
     """Render a card with token information"""
