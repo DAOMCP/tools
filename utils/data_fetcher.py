@@ -3,6 +3,7 @@ import pandas as pd
 import time
 import streamlit as st
 import os
+from utils.dummy_data import generate_dummy_tokens, generate_historical_data, generate_token_details
 
 class CoinGeckoAPI:
     """
@@ -24,6 +25,11 @@ class CoinGeckoAPI:
         Get AI-related tokens by searching and filtering categories
         """
         try:
+            # Use demo data to avoid API rate limits while testing
+            if not self.api_key:
+                st.info("Using demo data. For real-time data, please add a CoinGecko API key.")
+                return generate_dummy_tokens(n=50)
+                
             # Get all tokens with AI in name, description or category
             ai_tokens = self._search_ai_tokens()
             
@@ -35,7 +41,9 @@ class CoinGeckoAPI:
         
         except Exception as e:
             st.error(f"Error fetching AI tokens: {str(e)}")
-            return pd.DataFrame()
+            # Fallback to demo data when API fails
+            st.info("Using demo data due to API error. Try again later.")
+            return generate_dummy_tokens(n=50)
     
     def _search_ai_tokens(self):
         """Search for AI-related tokens"""
@@ -156,6 +164,10 @@ class CoinGeckoAPI:
     @st.cache_data(ttl=300)
     def get_token_historical_data(self, token_id, days=7):
         """Get historical market data for a specific token"""
+        if not self.api_key or token_id == "neural-network" or token_id.startswith("neural") or token_id.startswith("brain"):
+            # Use demo data for testing or when API key is not available
+            return generate_historical_data(days=days)
+            
         url = f"{self.BASE_URL}/coins/{token_id}/market_chart"
         params = {
             "vs_currency": "usd",
@@ -183,11 +195,16 @@ class CoinGeckoAPI:
         
         except Exception as e:
             st.error(f"Error fetching historical data for {token_id}: {str(e)}")
-            return pd.DataFrame()
+            # Return demo data as a fallback
+            return generate_historical_data(days=days)
     
     @st.cache_data(ttl=300)
     def get_token_details(self, token_id):
         """Get detailed information about a specific token"""
+        if not self.api_key or token_id == "neural-network" or token_id.startswith("neural") or token_id.startswith("brain"):
+            # Use demo data for testing or when API key is not available
+            return generate_token_details()
+            
         url = f"{self.BASE_URL}/coins/{token_id}"
         params = {
             "localization": "false",
@@ -204,4 +221,5 @@ class CoinGeckoAPI:
         
         except Exception as e:
             st.error(f"Error fetching token details for {token_id}: {str(e)}")
-            return {}
+            # Return demo data as a fallback
+            return generate_token_details()
