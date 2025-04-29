@@ -329,8 +329,8 @@ def render_home():
     # Main Pages navigation section
     st.markdown('<h2 class="gold-header">Explore the Platform</h2>', unsafe_allow_html=True)
     
-    # Create cards for each page
-    col1, col2, col3 = st.columns(3)
+    # Create cards for each page (now in 2x2 grid)
+    col1, col2 = st.columns(2)
     
     with col1:
         st.markdown(
@@ -358,6 +358,8 @@ def render_home():
             unsafe_allow_html=True
         )
     
+    col3, col4 = st.columns(2)
+    
     with col3:
         st.markdown(
             """
@@ -366,6 +368,19 @@ def render_home():
                 <p style="flex-grow: 1;">Explore the world of AI agents and their capabilities. Track popularity trends, categories, and the evolving AI agent ecosystem.</p>
                 <div style="font-size: 1.5rem; color: #FFD700; margin: 15px 0;">🤖</div>
                 <a href="/AI_Agents" target="_self" class="gold-button" style="display:block; text-decoration:none;">Discover Agents</a>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        
+    with col4:
+        st.markdown(
+            """
+            <div class="page-link-card">
+                <h3 style="color: #FFD700;">News Analysis</h3>
+                <p style="flex-grow: 1;">Track AI crypto news sentiment and trending topics. Analyze media coverage, market narratives, and token mentions across the ecosystem.</p>
+                <div style="font-size: 1.5rem; color: #FFD700; margin: 15px 0;">📰</div>
+                <a href="/News_Analysis" target="_self" class="gold-button" style="display:block; text-decoration:none;">Analyze News</a>
             </div>
             """,
             unsafe_allow_html=True

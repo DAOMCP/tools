@@ -4,11 +4,10 @@ address = "0.0.0.0"
 port = 5000
 
 [theme]
-# Black and gold luxury theme
-primaryColor = "#FFD700"  # Gold
-backgroundColor = "#0A0A0A"  # Deep black
-secondaryBackgroundColor = "#1A1A1A"  # Slightly lighter black
-textColor = "#F0F0F0"  # Off-white text
+primaryColor = "#FFD700"
+backgroundColor = "#0A0A0A"
+secondaryBackgroundColor = "#1A1A1A"
+textColor = "#F0F0F0"
 font = "sans serif"
 
 [global]

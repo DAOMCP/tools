@@ -28,10 +28,15 @@ class DataProcessor:
             (filtered_df['market_cap'] <= market_cap_max)
         ]
         
-        # Filter by category if specified
+        # Filter by market cap category if specified
         category = filter_settings.get("category", "all")
         if category != "all":
             filtered_df = filtered_df[filtered_df['market_cap_category'] == category]
+        
+        # Filter by AI category if specified
+        ai_category = filter_settings.get("ai_category", "all")
+        if ai_category != "all" and 'ai_category' in filtered_df.columns:
+            filtered_df = filtered_df[filtered_df['ai_category'] == ai_category]
         
         # Apply sorting
         sort_by = filter_settings.get("sort_by", "market_cap")
