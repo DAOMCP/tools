@@ -19,22 +19,21 @@ class CoinGeckoAPI:
         if self.api_key:
             self.headers["x-cg-pro-api-key"] = self.api_key
     
-    @st.cache_data(ttl=300)  # Cache results for 5 minutes
-    def get_ai_related_tokens(_self):
+    def get_ai_related_tokens(self):
         """
         Get AI-related tokens by searching and filtering categories
         """
         try:
             # Use demo data to avoid API rate limits while testing
-            if not _self.api_key:
+            if not self.api_key:
                 st.info("Using demo data. For real-time data, please add a CoinGecko API key.")
                 return generate_dummy_tokens(n=50)
                 
             # Get all tokens with AI in name, description or category
-            ai_tokens = _self._search_ai_tokens()
+            ai_tokens = self._search_ai_tokens()
             
             # Get additional details for each token
-            detailed_tokens = _self._get_token_details(ai_tokens)
+            detailed_tokens = self._get_token_details(ai_tokens)
             
             # Create a DataFrame
             return pd.DataFrame(detailed_tokens)
@@ -161,7 +160,6 @@ class CoinGeckoAPI:
         
         return detailed_tokens
     
-    @st.cache_data(ttl=300)
     def get_token_historical_data(self, token_id, days=7):
         """Get historical market data for a specific token"""
         if not self.api_key or token_id == "neural-network" or token_id.startswith("neural") or token_id.startswith("brain"):
@@ -198,7 +196,6 @@ class CoinGeckoAPI:
             # Return demo data as a fallback
             return generate_historical_data(days=days)
     
-    @st.cache_data(ttl=300)
     def get_token_details(self, token_id):
         """Get detailed information about a specific token"""
         if not self.api_key or token_id == "neural-network" or token_id.startswith("neural") or token_id.startswith("brain"):
@@ -223,3 +220,20 @@ class CoinGeckoAPI:
             st.error(f"Error fetching token details for {token_id}: {str(e)}")
             # Return demo data as a fallback
             return generate_token_details()
+
+# Create a custom cache wrapper for class methods
+def cache_api_call(ttl=300):
+    """Custom cache decorator for API class methods"""
+    def decorator(func):
+        cache = st.cache_data(ttl=ttl)
+        def wrapped_func(self, *args, **kwargs):
+            # Create a key based on function name and arguments, excluding 'self'
+            key = f"{func.__name__}_{str(args)}_{str(kwargs)}"
+            
+            @cache
+            def cached_func(key):
+                return func(self, *args, **kwargs)
+            
+            return cached_func(key)
+        return wrapped_func
+    return decorator
