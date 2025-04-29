@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7E57C2" />
+      <stop offset="100%" stop-color="#4527A0" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="20" fill="#1E2130" />
+  <g transform="translate(25, 25)">
+    <!-- Outer circle -->
+    <circle cx="75" cy="75" r="70" fill="none" stroke="url(#gradient)" stroke-width="6" />
+    
+    <!-- Inner circular pattern to represent AI/data -->
+    <circle cx="75" cy="75" r="50" fill="none" stroke="#9575CD" stroke-width="3" stroke-dasharray="5,3" />
+    <circle cx="75" cy="75" r="35" fill="none" stroke="#9575CD" stroke-width="2" />
+    
+    <!-- Data points around the circle -->
+    <circle cx="75" cy="25" r="6" fill="#7E57C2" />
+    <circle cx="125" cy="75" r="6" fill="#7E57C2" />
+    <circle cx="75" cy="125" r="6" fill="#7E57C2" />
+    <circle cx="25" cy="75" r="6" fill="#7E57C2" />
+    
+    <!-- Lines connecting data points -->
+    <line x1="75" y1="25" x2="125" y2="75" stroke="#7E57C2" stroke-width="2" />
+    <line x1="125" y1="75" x2="75" y2="125" stroke="#7E57C2" stroke-width="2" />
+    <line x1="75" y1="125" x2="25" y2="75" stroke="#7E57C2" stroke-width="2" />
+    <line x1="25" y1="75" x2="75" y2="25" stroke="#7E57C2" stroke-width="2" />
+    
+    <!-- Text elements -->
+    <text x="75" y="78" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">M100D</text>
+  </g>
+</svg>
