@@ -329,23 +329,36 @@ def render_home():
     # Main Pages navigation section
     st.markdown('<h2 class="gold-header">Explore the Platform</h2>', unsafe_allow_html=True)
     
-    # Create cards for each page (now in 2x2 grid)
-    col1, col2 = st.columns(2)
+    # Create 2x3 grid for page links
+    col1, col2, col3 = st.columns(3)
     
     with col1:
         st.markdown(
             """
             <div class="page-link-card">
-                <h3 style="color: #FFD700;">Token Explorer</h3>
-                <p style="flex-grow: 1;">Browse and filter AI tokens by market cap, price, and performance. Get detailed information on individual tokens and their key metrics.</p>
+                <h3 style="color: #FFD700;">AI Majors</h3>
+                <p style="flex-grow: 1;">Browse and filter AI tokens by market cap, price, and performance. Get detailed information on major AI tokens and their key metrics.</p>
                 <div style="font-size: 1.5rem; color: #FFD700; margin: 15px 0;">💰</div>
-                <a href="/Token_Explorer" target="_self" class="gold-button" style="display:block; text-decoration:none;">Explore Tokens</a>
+                <a href="/AI_Majors" target="_self" class="gold-button" style="display:block; text-decoration:none;">Explore Majors</a>
             </div>
             """,
             unsafe_allow_html=True
         )
     
     with col2:
+        st.markdown(
+            """
+            <div class="page-link-card">
+                <h3 style="color: #00FF9E;">New AI Launch</h3>
+                <p style="flex-grow: 1;">Discover newly launched AI tokens with market caps under 70M. Analyze early-stage opportunities and track emerging AI technologies.</p>
+                <div style="font-size: 1.5rem; color: #00FF9E; margin: 15px 0;">🚀</div>
+                <a href="/New_AI_Launch" target="_self" class="gold-button" style="display:block; text-decoration:none; color: #00FF9E !important; border-color: #00FF9E !important;">Discover New Launches</a>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        
+    with col3:
         st.markdown(
             """
             <div class="page-link-card">
@@ -358,9 +371,9 @@ def render_home():
             unsafe_allow_html=True
         )
     
-    col3, col4 = st.columns(2)
+    col4, col5, col6 = st.columns(3)
     
-    with col3:
+    with col4:
         st.markdown(
             """
             <div class="page-link-card">
@@ -373,7 +386,7 @@ def render_home():
             unsafe_allow_html=True
         )
         
-    with col4:
+    with col5:
         st.markdown(
             """
             <div class="page-link-card">
@@ -381,6 +394,19 @@ def render_home():
                 <p style="flex-grow: 1;">Track AI crypto news sentiment and trending topics. Analyze media coverage, market narratives, and token mentions across the ecosystem.</p>
                 <div style="font-size: 1.5rem; color: #FFD700; margin: 15px 0;">📰</div>
                 <a href="/News_Analysis" target="_self" class="gold-button" style="display:block; text-decoration:none;">Analyze News</a>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        
+    with col6:
+        st.markdown(
+            """
+            <div class="page-link-card" style="background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(40, 40, 40, 0.8) 100%);">
+                <h3 style="color: #FFD700;">Coming Soon</h3>
+                <p style="flex-grow: 1;">More analytics features are being developed to provide deeper insights into the AI token ecosystem. Stay tuned for future updates!</p>
+                <div style="font-size: 1.5rem; color: #FFD700; margin: 15px 0;">⏳</div>
+                <div class="gold-button" style="display:block; text-decoration:none; opacity: 0.7; cursor: not-allowed;">Coming Soon</div>
             </div>
             """,
             unsafe_allow_html=True

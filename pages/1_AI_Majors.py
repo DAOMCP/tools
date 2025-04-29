@@ -8,7 +8,7 @@ from utils.data_processor import DataProcessor
 from components.animations import render_animated_metric, render_card
 
 st.set_page_config(
-    page_title="M100D - Token Explorer",
+    page_title="M100D - AI Majors",
     page_icon="💰",
     layout="wide"
 )
@@ -85,7 +85,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 def render_token_explorer():
-    st.markdown('<h1 class="gold-header">AI Token Explorer</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="gold-header">AI Majors</h1>', unsafe_allow_html=True)
     
     # Initialize API and data processor
     api = CoinGeckoAPI()
