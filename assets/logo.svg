@@ -2,8 +2,9 @@
 <svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <defs>
         <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#00E4FF" />
-            <stop offset="100%" stop-color="#FF00A0" />
+            <stop offset="0%" stop-color="#FFD700" />
+            <stop offset="50%" stop-color="#A67C00" />
+            <stop offset="100%" stop-color="#FFD700" />
         </linearGradient>
         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="4" result="blur" />
@@ -16,15 +17,15 @@
         
         <!-- Internal Network Design -->
         <!-- Central Node -->
-        <circle cx="75" cy="75" r="10" fill="#00E4FF" />
+        <circle cx="75" cy="75" r="10" fill="#FFD700" />
         
         <!-- Connecting Nodes -->
-        <circle cx="105" cy="55" r="6" fill="#00E4FF" />
-        <circle cx="105" cy="95" r="6" fill="#FF00A0" />
-        <circle cx="45" cy="55" r="6" fill="#FF00A0" />
-        <circle cx="45" cy="95" r="6" fill="#00E4FF" />
-        <circle cx="75" cy="35" r="6" fill="#00E4FF" />
-        <circle cx="75" cy="115" r="6" fill="#FF00A0" />
+        <circle cx="105" cy="55" r="6" fill="#FFD700" />
+        <circle cx="105" cy="95" r="6" fill="#A67C00" />
+        <circle cx="45" cy="55" r="6" fill="#A67C00" />
+        <circle cx="45" cy="95" r="6" fill="#FFD700" />
+        <circle cx="75" cy="35" r="6" fill="#FFD700" />
+        <circle cx="75" cy="115" r="6" fill="#A67C00" />
         
         <!-- Connection Lines -->
         <line x1="75" y1="75" x2="105" y2="55" />
@@ -52,7 +53,7 @@
     </g>
     
     <!-- Tech Pattern Overlay -->
-    <g stroke-width="1" stroke="rgba(0, 228, 255, 0.3)" opacity="0.6">
+    <g stroke-width="1" stroke="rgba(255, 215, 0, 0.3)" opacity="0.6">
         <path d="M75,20 L120,45 L120,105 L75,130 L30,105 L30,45 Z" fill="none" />
         <path d="M75,30 L110,50 L110,95 L75,120 L40,95 L40,50 Z" fill="none" />
         

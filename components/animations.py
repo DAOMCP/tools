@@ -150,56 +150,56 @@ def render_futuristic_header():
     
     st.markdown('</div>', unsafe_allow_html=True)
 
-def render_animated_metric(label, value, delta=None, color="blue"):
+def render_animated_metric(label, value, delta=None, color="gold"):
     """Render a metric with glow animation"""
     
     delta_html = ""
     if delta is not None:
         is_positive = delta >= 0
-        delta_color = "green" if is_positive else "red"
+        delta_color = "#00FF9E" if is_positive else "#FF3D71"  # Green for positive, red for negative
         delta_arrow = "↑" if is_positive else "↓"
         delta_html = f'<span style="color: {delta_color}; font-size: 0.8rem">{delta_arrow} {abs(delta)}</span>'
     
     color_map = {
-        "blue": "#00E4FF",
-        "green": "#00FF9E",
-        "red": "#FF3D71",
-        "purple": "#A855F7",
-        "pink": "#FF00A0"
+        "gold": "#FFD700",  # Gold for primary
+        "amber": "#FFC107",  # Amber for secondary
+        "green": "#00FF9E",  # Green for positive changes
+        "red": "#FF3D71",    # Red for negative changes
+        "blue": "#4285F4"    # Blue accent
     }
     
-    glow_color = color_map.get(color, "#00E4FF")
+    glow_color = color_map.get(color, "#FFD700")  # Default to gold if color not found
     
     html = f"""
-    <div class="metric-container datapoint" style="background: rgba(26, 33, 81, 0.6); padding: 15px; border-radius: 8px; margin-bottom: 10px;">
-        <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 5px;">{label}</div>
-        <div style="font-size: 1.8rem; font-weight: bold; color: {glow_color}; text-shadow: 0 0 10px rgba({glow_color}, 0.5);">{value} {delta_html}</div>
+    <div class="metric-container datapoint" style="background: rgba(26, 26, 26, 0.6); padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid rgba(255, 215, 0, 0.1);">
+        <div style="font-size: 0.9rem; color: #A0A0A0; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">{label}</div>
+        <div style="font-size: 1.8rem; font-weight: bold; color: {glow_color}; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);">{value} {delta_html}</div>
     </div>
     """
     
     st.markdown(html, unsafe_allow_html=True)
 
-def render_card(title, content, color="blue", icon=None):
+def render_card(title, content, color="gold", icon=None):
     """Render a card with hover effects"""
     
     color_map = {
-        "blue": "#00E4FF",
-        "green": "#00FF9E",
-        "red": "#FF3D71",
-        "purple": "#A855F7",
-        "pink": "#FF00A0"
+        "gold": "#FFD700",    # Gold for primary
+        "amber": "#FFC107",   # Amber for secondary
+        "green": "#00FF9E",   # Green for positive changes
+        "red": "#FF3D71",     # Red for negative changes
+        "blue": "#4285F4"     # Blue accent
     }
     
-    card_color = color_map.get(color, "#00E4FF")
+    card_color = color_map.get(color, "#FFD700")
     icon_html = f'<span style="margin-right: 5px;">{icon}</span>' if icon else ''
     
     html = f"""
-    <div class="card-container datapoint" style="background: rgba(26, 33, 81, 0.6); 
-         border-left: 3px solid {card_color}; padding: 15px; border-radius: 8px; 
-         margin-bottom: 15px; transition: all 0.3s ease;">
-        <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; 
-             color: {card_color};">{icon_html}{title}</div>
-        <div>{content}</div>
+    <div class="card-container datapoint" style="background: rgba(26, 26, 26, 0.6); 
+         border-left: 3px solid {card_color}; padding: 18px; border-radius: 8px; 
+         margin-bottom: 18px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; 
+             color: {card_color}; letter-spacing: 0.5px;">{icon_html}{title}</div>
+        <div style="color: #E0E0E0;">{content}</div>
     </div>
     """
     
@@ -212,11 +212,13 @@ def render_data_cluster():
     <style>
     .data-cluster {
         position: relative;
-        height: 200px;
-        background: rgba(26, 33, 81, 0.3);
+        height: 220px;
+        background: rgba(10, 10, 10, 0.5);
         border-radius: 10px;
         overflow: hidden;
         margin-bottom: 20px;
+        border: 1px solid rgba(255, 215, 0, 0.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
     
     .data-point {
@@ -224,13 +226,13 @@ def render_data_cluster():
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: rgba(0, 228, 255, 0.8);
-        box-shadow: 0 0 10px rgba(0, 228, 255, 0.5);
+        background: rgba(255, 215, 0, 0.8);
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     }
     
     .connection {
         position: absolute;
-        background: linear-gradient(90deg, rgba(0, 228, 255, 0.5), rgba(255, 0, 160, 0.5));
+        background: linear-gradient(90deg, rgba(255, 215, 0, 0.5), rgba(166, 124, 0, 0.5));
         height: 1px;
         transform-origin: left center;
     }
@@ -260,10 +262,6 @@ def render_data_cluster():
         <div class="connection" style="top: 40%; left: 60%; width: 25%; transform: rotate(-30deg);"></div>
         <div class="connection" style="top: 60%; left: 40%; width: 35%; transform: rotate(30deg);"></div>
     </div>
-    
-    <script>
-        // This script would animate connections dynamically, but Streamlit doesn't support dynamic JS
-    </script>
     """, unsafe_allow_html=True)
 
 def render_ai_token_visualization():
@@ -274,18 +272,20 @@ def render_ai_token_visualization():
     .token-cosmos {
         position: relative;
         height: 300px;
-        background: linear-gradient(180deg, rgba(10, 17, 40, 1) 0%, rgba(26, 33, 81, 0.3) 100%);
+        background: linear-gradient(180deg, rgba(10, 10, 10, 1) 0%, rgba(26, 26, 26, 0.5) 100%);
         border-radius: 10px;
         overflow: hidden;
         margin: 20px 0;
+        border: 1px solid rgba(255, 215, 0, 0.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
     
     .token {
         position: absolute;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(0,228,255,0.4) 70%, transparent 100%);
+        background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,215,0,0.4) 70%, transparent 100%);
         transform-origin: center center;
-        box-shadow: 0 0 15px rgba(0, 228, 255, 0.6);
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
     }
     
     @keyframes orbit {
@@ -301,7 +301,7 @@ def render_ai_token_visualization():
     
     .token-name {
         position: absolute;
-        color: white;
+        color: #FFD700;
         font-size: 10px;
         white-space: nowrap;
         pointer-events: none;
@@ -312,8 +312,8 @@ def render_ai_token_visualization():
     <div class="token-cosmos">
         <!-- Central node - represents the AI sector -->
         <div class="token" style="top: 50%; left: 50%; width: 40px; height: 40px; margin-top: -20px; margin-left: -20px; z-index: 10; 
-                     box-shadow: 0 0 20px rgba(255, 0, 160, 0.8); 
-                     background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,0,160,0.6) 70%, transparent 100%);
+                     box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); 
+                     background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,215,0,0.6) 70%, transparent 100%);
                      animation: pulse-size 4s infinite ease-in-out;">
         </div>
         <div class="token-name" style="top: calc(50% + 25px); left: 50%; transform: translateX(-50%);">AI Sector</div>
