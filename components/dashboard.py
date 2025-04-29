@@ -2,13 +2,14 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import numpy as np
 from utils.data_fetcher import CoinGeckoAPI
 from utils.data_processor import DataProcessor
+from components.animations import render_data_cluster, render_ai_token_visualization
+from components.animations import render_animated_metric, render_card
 
 def render_dashboard():
     """Render the main dashboard view"""
-    st.subheader("AI Token Dashboard")
-    
     # Initialize data fetcher and processor
     api = CoinGeckoAPI()
     processor = DataProcessor()
@@ -25,23 +26,52 @@ def render_dashboard():
     # Filter the data based on user settings
     filtered_df = processor.filter_tokens(df, st.session_state.filter_settings)
     
-    # Market Overview Section
+    # Calculate market stats
     market_stats = processor.calculate_market_stats(filtered_df)
-    render_market_overview(market_stats)
     
-    # Top Gainers and Losers
+    # Render a futuristic data visualization with AI token ecosystem
+    col1, col2 = st.columns([3, 2])
+    with col1:
+        st.markdown("<h2 style='color:#00E4FF;'>AI Token Ecosystem</h2>", unsafe_allow_html=True)
+        render_data_cluster()
+    with col2:
+        # Animated visualizations for key metrics
+        total_market_cap = market_stats.get('total_market_cap', 0)
+        total_tokens = market_stats.get('total_tokens', 0)
+        avg_24h_change = market_stats.get('avg_24h_change', 0)
+        
+        formatted_mcap = DataProcessor.format_number(total_market_cap)
+        
+        render_animated_metric("Total Market Cap", f"${formatted_mcap}", None, color="blue")
+        render_animated_metric("Total AI Tokens", f"{total_tokens}", None, color="pink")
+        render_animated_metric("24h Average Change", f"{avg_24h_change:.2f}%", 
+                              avg_24h_change, 
+                              "green" if avg_24h_change >= 0 else "red")
+    
+    # Top Gainers and Losers with enhanced visuals
+    st.markdown("<h2 style='color:#00E4FF;'>Top Performers</h2>", unsafe_allow_html=True)
     render_gainers_losers(filtered_df)
     
+    # AI Token visualization with animation for visual engagement
+    st.markdown("<h2 style='color:#00E4FF;'>AI Token Universe</h2>", unsafe_allow_html=True)
+    render_ai_token_visualization()
+    
     # Token list with interactive table
+    st.markdown("<h2 style='color:#00E4FF;'>AI Token Explorer</h2>", unsafe_allow_html=True)
     render_token_table(filtered_df)
     
-    # Market cap distribution chart
-    render_market_cap_distribution(filtered_df)
+    # Visual data insights section
+    st.markdown("<h2 style='color:#00E4FF;'>Market Insights</h2>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
     
-    # Token launch trends chart
-    render_token_launch_trends(filtered_df)
+    with col1:
+        render_market_cap_distribution(filtered_df)
     
-    # Token performance trends
+    with col2:
+        render_token_launch_trends(filtered_df)
+    
+    # Token performance trends with improved visuals
+    st.markdown("<h2 style='color:#00E4FF;'>Performance Analysis</h2>", unsafe_allow_html=True)
     render_performance_trends(filtered_df)
 
 def render_market_overview(stats):
@@ -102,28 +132,50 @@ def render_market_overview(stats):
 
 def render_gainers_losers(df):
     """Render the top gainers and losers section"""
-    st.subheader("Top Performers")
-    
     # Get top 5 gainers and losers
     gainers, losers = DataProcessor.get_top_gainers_losers(df, n=5)
     
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### 🚀 Top Gainers (24h)")
+        st.markdown('<h3 style="color:#00FF9E;">🚀 Top Gainers (24h)</h3>', unsafe_allow_html=True)
         if gainers.empty:
             st.info("No gainers data available")
         else:
             for _, token in gainers.iterrows():
-                render_token_card(token, is_gainer=True)
+                # Use our custom card component instead of the default one
+                render_card(
+                    title=f"{token['name']} ({token['symbol']})",
+                    content=f"""
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>Price: <span style="color: white;">${token['price']:,.6f}</span></div>
+                        <div>Change: <span style="color: #00FF9E; font-weight: bold;">+{token['price_change_24h']:.2f}%</span></div>
+                    </div>
+                    <div style="margin-top: 5px;">Market Cap: {DataProcessor.format_number(token['market_cap'])}</div>
+                    """,
+                    color="green",
+                    icon="📈"
+                )
     
     with col2:
-        st.markdown("### 📉 Top Losers (24h)")
+        st.markdown('<h3 style="color:#FF3D71;">📉 Top Losers (24h)</h3>', unsafe_allow_html=True)
         if losers.empty:
             st.info("No losers data available")
         else:
             for _, token in losers.iterrows():
-                render_token_card(token, is_gainer=False)
+                # Use our custom card component instead of the default one
+                render_card(
+                    title=f"{token['name']} ({token['symbol']})",
+                    content=f"""
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>Price: <span style="color: white;">${token['price']:,.6f}</span></div>
+                        <div>Change: <span style="color: #FF3D71; font-weight: bold;">{token['price_change_24h']:.2f}%</span></div>
+                    </div>
+                    <div style="margin-top: 5px;">Market Cap: {DataProcessor.format_number(token['market_cap'])}</div>
+                    """,
+                    color="red",
+                    icon="📉"
+                )
 
 def render_token_card(token, is_gainer=True):
     """Render a card with token information"""
@@ -318,12 +370,18 @@ def render_performance_trends(df):
         st.plotly_chart(fig, use_container_width=True)
     
     with tab2:
+        # Create a copy of the dataframe for plotting
+        plot_df = df.copy()
+        
+        # Use absolute value of price change for size, and add a minimum size
+        plot_df['bubble_size'] = np.abs(plot_df['price_change_24h']) + 5
+        
         # Create a scatter plot of market cap vs volume
         fig = px.scatter(
-            df,
+            plot_df,
             x='market_cap',
             y='volume_24h',
-            size='price_change_24h',
+            size='bubble_size',  # Use absolute values for size
             color='price_change_24h',
             color_continuous_scale='RdYlGn',
             color_continuous_midpoint=0,
@@ -333,7 +391,8 @@ def render_performance_trends(df):
                 'price': ':.6f',
                 'market_cap': ':,.0f',
                 'volume_24h': ':,.0f',
-                'price_change_24h': ':+.2f%'
+                'price_change_24h': ':+.2f%',
+                'bubble_size': False  # Hide this in the hover
             },
             title='Market Cap vs. 24h Volume',
             log_x=True,

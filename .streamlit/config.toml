@@ -4,12 +4,11 @@ address = "0.0.0.0"
 port = 5000
 
 [theme]
-# Vibrant cyberpunk/futuristic theme
-primaryColor = "#00E4FF"  # Bright cyan
-secondaryColor = "#FF00A0"  # Neon magenta
-backgroundColor = "#0A1128"  # Deep blue-black
-secondaryBackgroundColor = "#1A2151"  # Dark blue with a hint of purple
-textColor = "#F0F2F6"  # Bright white text
+primaryColor = "#00E4FF"
+secondaryColor = "#FF00A0"
+backgroundColor = "#0A1128"
+secondaryBackgroundColor = "#1A2151"
+textColor = "#F0F2F6"
 font = "sans serif"
 
 [global]
