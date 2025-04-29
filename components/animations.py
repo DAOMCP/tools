@@ -3,13 +3,13 @@ import streamlit as st
 def render_futuristic_header():
     """Render a futuristic, animated header for the app"""
     
-    # CSS for glowing text effect and animation
+    # CSS for glowing text effect and animation with gold theme
     st.markdown("""
     <style>
     @keyframes pulse {
-        0% { text-shadow: 0 0 10px rgba(0, 228, 255, 0.7), 0 0 20px rgba(0, 228, 255, 0.5), 0 0 30px rgba(0, 228, 255, 0.3); }
-        50% { text-shadow: 0 0 15px rgba(0, 228, 255, 0.9), 0 0 25px rgba(0, 228, 255, 0.7), 0 0 35px rgba(0, 228, 255, 0.5); }
-        100% { text-shadow: 0 0 10px rgba(0, 228, 255, 0.7), 0 0 20px rgba(0, 228, 255, 0.5), 0 0 30px rgba(0, 228, 255, 0.3); }
+        0% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3); }
+        50% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 25px rgba(255, 215, 0, 0.7), 0 0 35px rgba(255, 215, 0, 0.5); }
+        100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3); }
     }
     
     @keyframes shimmer {
@@ -26,7 +26,7 @@ def render_futuristic_header():
     }
     
     .gradient-text {
-        background: linear-gradient(90deg, #00E4FF, #FF00A0, #00E4FF);
+        background: linear-gradient(90deg, #FFD700, #A67C00, #FFD700);
         background-size: 200% 100%;
         -webkit-background-clip: text;
         background-clip: text;
@@ -35,12 +35,12 @@ def render_futuristic_header():
     }
     
     .hero-container {
-        background: rgba(26, 33, 81, 0.3);
+        background: rgba(26, 26, 26, 0.5);
         border-radius: 10px;
         padding: 20px;
         margin-bottom: 25px;
-        border: 1px solid rgba(0, 228, 255, 0.3);
-        box-shadow: 0 0 15px rgba(0, 228, 255, 0.2);
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     }
     
     .moving-background {
@@ -56,9 +56,9 @@ def render_futuristic_header():
         right: 0;
         bottom: 0;
         background: 
-            radial-gradient(circle at 10% 20%, rgba(0, 228, 255, 0.03) 0%, transparent 20%),
-            radial-gradient(circle at 90% 50%, rgba(255, 0, 160, 0.03) 0%, transparent 25%),
-            radial-gradient(circle at 30% 80%, rgba(0, 228, 255, 0.03) 0%, transparent 20%);
+            radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.03) 0%, transparent 20%),
+            radial-gradient(circle at 90% 50%, rgba(255, 215, 0, 0.03) 0%, transparent 25%),
+            radial-gradient(circle at 30% 80%, rgba(255, 215, 0, 0.03) 0%, transparent 20%);
         z-index: -1;
         animation: move-bg 15s linear infinite;
     }
@@ -72,6 +72,7 @@ def render_futuristic_header():
         font-size: 1.3rem !important;
         opacity: 0.9;
         margin-top: 0 !important;
+        color: #A0A0A0;
     }
     
     .description {
@@ -92,7 +93,7 @@ def render_futuristic_header():
     /* Card hover effects */
     .card-container:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 228, 255, 0.25);
+        box-shadow: 0 8px 20px rgba(255, 215, 0, 0.15);
         transition: all 0.3s ease-in-out;
     }
     
@@ -112,7 +113,7 @@ def render_futuristic_header():
         bottom: -2px;
         z-index: -1;
         border-radius: 10px;
-        background: linear-gradient(45deg, #00E4FF, transparent, #FF00A0);
+        background: linear-gradient(45deg, #FFD700, transparent, #A67C00);
         animation: rotate 3s linear infinite;
     }
     
