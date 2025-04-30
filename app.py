@@ -3,6 +3,7 @@ from components.sidebar import render_sidebar
 from components.dashboard import render_dashboard
 from components.token_details import render_token_details
 from components.animations import render_futuristic_header
+from components.token_universe import render_token_universe  # Import the new component
 
 # Set page configuration
 st.set_page_config(
@@ -118,6 +119,10 @@ def main():
     # Render the main content based on the current view
     if st.session_state.view == "dashboard":
         render_dashboard()
+        
+        # Add the Token Universe visualization to the dashboard
+        render_token_universe()
+        
     elif st.session_state.view == "token_details":
         render_token_details(st.session_state.selected_token)
 
