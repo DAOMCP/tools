@@ -183,11 +183,15 @@ def render_market_analysis():
                 yaxis_title="24h Volume (log scale)",
                 margin=dict(l=10, r=10, t=50, b=10),
                 height=500,
-                coloraxis_colorbar=dict(
-                    title="24h Change (%)",
-                    titleside="right",
-                    titlefont=dict(color="#FFD700"),
-                    tickfont=dict(color="#FFD700"),
+                coloraxis=dict(
+                    colorbar=dict(
+                        title=dict(
+                            text="24h Change (%)",
+                            side="right",
+                            font=dict(color="#FFD700")
+                        ),
+                        tickfont=dict(color="#FFD700")
+                    )
                 ),
                 xaxis=dict(
                     gridcolor='rgba(255, 215, 0, 0.1)',
@@ -234,11 +238,15 @@ def render_market_analysis():
             paper_bgcolor='rgba(0, 0, 0, 0)',
             margin=dict(l=10, r=10, t=30, b=10),
             height=600,
-            coloraxis_colorbar=dict(
-                title="24h Change (%)",
-                titleside="right",
-                titlefont=dict(color="#FFD700"),
-                tickfont=dict(color="#FFD700"),
+            coloraxis=dict(
+                colorbar=dict(
+                    title=dict(
+                        text="24h Change (%)",
+                        side="right",
+                        font=dict(color="#FFD700")
+                    ),
+                    tickfont=dict(color="#FFD700")
+                )
             ),
             title={
                 'text': "AI Token Market Cap Distribution",

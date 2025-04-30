@@ -734,10 +734,9 @@ def render_new_ai_launch():
                     gridcolor='rgba(255, 215, 0, 0.1)',
                     linecolor='rgba(255, 215, 0, 0.5)'
                 ),
+                # Hide the colorbar 
                 coloraxis=dict(
-                    colorbar=dict(
-                        visible=False
-                    )
+                    showscale=False
                 ),
                 title={
                     'text': "Distribution of Risk Scores",
