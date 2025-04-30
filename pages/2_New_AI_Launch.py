@@ -660,14 +660,16 @@ def render_new_ai_launch():
                     linecolor='rgba(255, 215, 0, 0.5)',
                     title={'font': {'color': '#CCCCCC'}}
                 ),
-                coloraxis_colorbar=dict(
-                    title="Days Since<br>Launch",
-                    thicknessmode="pixels", thickness=20,
-                    lenmode="pixels", len=300,
-                    yanchor="top", y=1,
-                    ticks="outside", ticksuffix=" days",
-                    title_font=dict(color="#CCCCCC"),
-                    tickfont=dict(color="#CCCCCC")
+                coloraxis=dict(
+                    colorbar=dict(
+                        title="Days Since<br>Launch",
+                        thickness=20,
+                        len=300,
+                        yanchor="top", y=1,
+                        ticks="outside", ticksuffix=" days",
+                        title_font=dict(color="#CCCCCC"),
+                        tickfont=dict(color="#CCCCCC")
+                    )
                 ),
                 title={
                     'text': "Risk Assessment of New AI Tokens",
@@ -732,7 +734,11 @@ def render_new_ai_launch():
                     gridcolor='rgba(255, 215, 0, 0.1)',
                     linecolor='rgba(255, 215, 0, 0.5)'
                 ),
-                coloraxis_colorbar_visible=False,
+                coloraxis=dict(
+                    colorbar=dict(
+                        visible=False
+                    )
+                ),
                 title={
                     'text': "Distribution of Risk Scores",
                     'y': 0.95,
