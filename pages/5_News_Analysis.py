@@ -292,11 +292,15 @@ def render_news_analysis():
                     'yanchor': 'top',
                     'font': {'color': '#FFD700', 'size': 18}
                 },
-                coloraxis_colorbar=dict(
-                    title="Mentions",
-                    titleside="right",
-                    titlefont=dict(color="#FFD700"),
-                    tickfont=dict(color="#FFD700")
+                coloraxis=dict(
+                    colorbar=dict(
+                        title=dict(
+                            text="Mentions",
+                            side="right",
+                            font=dict(color="#FFD700")
+                        ),
+                        tickfont=dict(color="#FFD700")
+                    )
                 )
             )
             

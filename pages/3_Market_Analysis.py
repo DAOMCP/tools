@@ -521,11 +521,15 @@ def render_market_analysis():
                     'yanchor': 'top',
                     'font': {'color': '#FFD700', 'size': 18}
                 },
-                coloraxis_colorbar=dict(
-                    title="Avg Change (%)",
-                    titleside="right",
-                    titlefont=dict(color="#FFD700"),
-                    tickfont=dict(color="#FFD700")
+                coloraxis=dict(
+                    colorbar=dict(
+                        title=dict(
+                            text="Avg Change (%)",
+                            side="right",
+                            font=dict(color="#FFD700")
+                        ),
+                        tickfont=dict(color="#FFD700")
+                    )
                 ),
                 xaxis=dict(
                     tickangle=305,
@@ -602,11 +606,15 @@ def render_market_analysis():
                 paper_bgcolor='rgba(0, 0, 0, 0)',
                 margin=dict(l=10, r=10, t=50, b=10),
                 height=500,
-                coloraxis_colorbar=dict(
-                    title="Risk Score",
-                    titleside="right",
-                    titlefont=dict(color="#FFD700"),
-                    tickfont=dict(color="#FFD700")
+                coloraxis=dict(
+                    colorbar=dict(
+                        title=dict(
+                            text="Risk Score",
+                            side="right",
+                            font=dict(color="#FFD700")
+                        ),
+                        tickfont=dict(color="#FFD700")
+                    )
                 ),
                 title={
                     'text': "Volatility vs Market Cap (Top 30 Tokens)",
