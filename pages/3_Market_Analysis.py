@@ -572,7 +572,7 @@ def render_market_analysis():
             # Create risk categories
             bins = [0, 33, 66, 100]
             labels = ['Low Risk', 'Medium Risk', 'High Risk']
-            volatility_df['risk_category'] = pd.cut(volatility_df['risk_score'], bins=bins, labels=labels)
+            volatility_df['risk_category'] = pd.cut(volatility_df['risk_score'], bins=bins, labels=labels, include_lowest=True)
             
             # Create scatter plot of volatility vs market cap
             fig_scatter = px.scatter(

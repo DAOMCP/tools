@@ -284,19 +284,77 @@ def render_ai_token_visualization():
         position: absolute;
         border-radius: 50%;
         background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,215,0,0.4) 70%, transparent 100%);
-        transform-origin: center center;
         box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
     }
     
-    @keyframes orbit {
-        0% { transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
-        100% { transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
+    .token-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,215,0,0.6) 70%, transparent 100%);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        animation: pulse-size 4s infinite ease-in-out;
+        z-index: 10;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+    }
+    
+    .token-orbit {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin-top: -10px;
+        margin-left: -10px;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+    
+    .orbit-1 { animation-name: orbit1; }
+    .orbit-2 { animation-name: orbit2; animation-duration: 25s; width: 24px; height: 24px; margin-top: -12px; margin-left: -12px; animation-direction: reverse; }
+    .orbit-3 { animation-name: orbit3; animation-duration: 30s; width: 16px; height: 16px; margin-top: -8px; margin-left: -8px; }
+    .orbit-4 { animation-name: orbit4; animation-duration: 15s; width: 18px; height: 18px; margin-top: -9px; margin-left: -9px; animation-direction: reverse; }
+    .orbit-5 { animation-name: orbit5; animation-duration: 22s; width: 14px; height: 14px; margin-top: -7px; margin-left: -7px; }
+    .orbit-6 { animation-name: orbit6; animation-duration: 27s; width: 22px; height: 22px; margin-top: -11px; margin-left: -11px; animation-direction: reverse; }
+    
+    @keyframes orbit1 {
+        0% { transform: rotate(0deg) translateX(80px) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(80px) rotate(-360deg); }
+    }
+    
+    @keyframes orbit2 {
+        0% { transform: rotate(0deg) translateX(110px) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(110px) rotate(-360deg); }
+    }
+    
+    @keyframes orbit3 {
+        0% { transform: rotate(0deg) translateX(140px) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
+    }
+    
+    @keyframes orbit4 {
+        0% { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+    }
+    
+    @keyframes orbit5 {
+        0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+    }
+    
+    @keyframes orbit6 {
+        0% { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
     }
     
     @keyframes pulse-size {
-        0% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.1); opacity: 0.8; }
-        100% { transform: scale(1); opacity: 1; }
+        0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+        100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
     }
     
     .token-name {
@@ -311,42 +369,26 @@ def render_ai_token_visualization():
     
     <div class="token-cosmos">
         <!-- Central node - represents the AI sector -->
-        <div class="token" style="top: 50%; left: 50%; width: 40px; height: 40px; margin-top: -20px; margin-left: -20px; z-index: 10; 
-                     box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); 
-                     background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,215,0,0.6) 70%, transparent 100%);
-                     animation: pulse-size 4s infinite ease-in-out;">
-        </div>
+        <div class="token-center"></div>
         <div class="token-name" style="top: calc(50% + 25px); left: 50%; transform: translateX(-50%);">AI Sector</div>
         
         <!-- Orbiting tokens - different sizes, speeds and distances -->
-        <div class="token" style="top: 50%; left: 50%; width: 20px; height: 20px; margin-top: -10px; margin-left: -10px; 
-                     --orbit-radius: 80px; animation: orbit 20s infinite linear;">
-        </div>
+        <div class="token token-orbit orbit-1"></div>
         <div class="token-name" style="top: calc(50% - 90px); left: 50%; transform: translateX(-50%);">Neural</div>
         
-        <div class="token" style="top: 50%; left: 50%; width: 24px; height: 24px; margin-top: -12px; margin-left: -12px; 
-                     --orbit-radius: 110px; animation: orbit 25s infinite linear reverse;">
-        </div>
+        <div class="token token-orbit orbit-2"></div>
         <div class="token-name" style="top: calc(50% + 120px); left: 50%; transform: translateX(-50%);">DeepAI</div>
         
-        <div class="token" style="top: 50%; left: 50%; width: 16px; height: 16px; margin-top: -8px; margin-left: -8px; 
-                     --orbit-radius: 140px; animation: orbit 30s infinite linear;">
-        </div>
+        <div class="token token-orbit orbit-3"></div>
         <div class="token-name" style="top: calc(50%); left: calc(50% - 150px);">Synapse</div>
         
-        <div class="token" style="top: 50%; left: 50%; width: 18px; height: 18px; margin-top: -9px; margin-left: -9px; 
-                     --orbit-radius: 60px; animation: orbit 15s infinite linear reverse;">
-        </div>
+        <div class="token token-orbit orbit-4"></div>
         <div class="token-name" style="top: calc(50%); left: calc(50% + 70px);">Cortex</div>
         
-        <div class="token" style="top: 50%; left: 50%; width: 14px; height: 14px; margin-top: -7px; margin-left: -7px; 
-                     --orbit-radius: 100px; animation: orbit 22s infinite linear;">
-        </div>
+        <div class="token token-orbit orbit-5"></div>
         <div class="token-name" style="top: calc(50% - 60px); left: calc(50% + 100px);">BrainDAO</div>
         
-        <div class="token" style="top: 50%; left: 50%; width: 22px; height: 22px; margin-top: -11px; margin-left: -11px; 
-                     --orbit-radius: 120px; animation: orbit 27s infinite linear reverse;">
-        </div>
+        <div class="token token-orbit orbit-6"></div>
         <div class="token-name" style="top: calc(50% + 70px); left: calc(50% - 120px);">GPT Chain</div>
     </div>
     """, unsafe_allow_html=True)

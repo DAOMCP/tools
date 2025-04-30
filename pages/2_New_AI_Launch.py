@@ -513,7 +513,7 @@ def render_new_ai_launch():
                     labels=['< 7 days', '7-14 days', '14-30 days', '30-60 days', '60-90 days']
                 )
                 
-                avg_perf_by_age = df.groupby('age_group')['price_change_24h'].mean().reset_index()
+                avg_perf_by_age = df.groupby('age_group', observed=True)['price_change_24h'].mean().reset_index()
                 
                 fig = px.bar(
                     avg_perf_by_age, 
@@ -556,7 +556,7 @@ def render_new_ai_launch():
                 # Compare volume between older and newer tokens
                 df['new_token'] = df['days_since_launch'] <= 30
                 
-                volume_by_age = df.groupby('new_token')['volume_24h'].mean().reset_index()
+                volume_by_age = df.groupby('new_token', observed=True)['volume_24h'].mean().reset_index()
                 volume_by_age['new_token'] = volume_by_age['new_token'].map({True: 'New Tokens (≤30d)', False: 'Older Tokens (>30d)'})
                 volume_by_age.columns = ['Token Age', 'Average Volume']
                 
